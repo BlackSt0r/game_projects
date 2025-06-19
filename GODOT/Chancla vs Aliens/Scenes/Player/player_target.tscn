@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnnh1mxuxaquj"]
+
+[ext_resource type="Script" path="res://Scenes/Player/player_target.gd" id="1_lh1l5"]
+[ext_resource type="Texture2D" uid="uid://d4dbql8n3ax1y" path="res://assets/Gun_Sight.png" id="2_xnmq6"]
+
+[node name="Player_Target" type="Node2D"]
+script = ExtResource("1_lh1l5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_xnmq6")

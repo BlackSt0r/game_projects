@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://du0qx61gcksw0"]
+
+[ext_resource type="Script" path="res://Scenes/Street/street.gd" id="1_v0ump"]
+[ext_resource type="Texture2D" uid="uid://cjeucelynpnpd" path="res://assets/Calle2.png" id="2_8u8ox"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_j5r5u"]
+
+[node name="Street" type="Node2D" node_paths=PackedStringArray("_collisionTop", "_collisionLeft", "_collisionRight", "_collisionBottom")]
+script = ExtResource("1_v0ump")
+_collisionTop = NodePath("TopArea")
+_collisionLeft = NodePath("LeftArea")
+_collisionRight = NodePath("RightArea")
+_collisionBottom = NodePath("BottomArea")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.2, 1.23)
+texture = ExtResource("2_8u8ox")
+
+[node name="TopArea" type="Area2D" parent="."]
+position = Vector2(120, -410)
+rotation = 1.5708
+scale = Vector2(1, 20)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopArea"]
+shape = SubResource("SegmentShape2D_j5r5u")
+
+[node name="LeftArea" type="Area2D" parent="."]
+position = Vector2(-100, -390)
+rotation = 0.296706
+scale = Vector2(1, 80)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftArea"]
+shape = SubResource("SegmentShape2D_j5r5u")
+
+[node name="RightArea" type="Area2D" parent="."]
+position = Vector2(146, -390)
+rotation = -0.349066
+scale = Vector2(1, 80)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightArea"]
+shape = SubResource("SegmentShape2D_j5r5u")
+
+[node name="BottomArea" type="Area2D" parent="."]
+position = Vector2(456, 424)
+rotation = 1.5708
+scale = Vector2(1, 85)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomArea"]
+shape = SubResource("SegmentShape2D_j5r5u")

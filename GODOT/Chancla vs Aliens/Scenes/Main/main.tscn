@@ -1,0 +1,124 @@
+[gd_scene load_steps=10 format=3 uid="uid://c3kgj4d242lbt"]
+
+[ext_resource type="Script" path="res://Scenes/Main/main.gd" id="1_0855w"]
+[ext_resource type="Texture2D" uid="uid://ct0vlk8ss327w" path="res://assets/BackGround_Main.png" id="2_6ogbn"]
+[ext_resource type="FontFile" uid="uid://0ly4ow518aet" path="res://assets/Font/Not Jam Mono Clean 13 - copia.ttf" id="3_jocux"]
+[ext_resource type="AudioStream" uid="uid://0q2hwn6y68l6" path="res://assets/Effects/start.ogg" id="5_78x8j"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yvnih"]
+font = ExtResource("3_jocux")
+font_size = 30
+font_color = Color(0.372549, 1, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_syuw4"]
+font = ExtResource("3_jocux")
+font_size = 24
+
+[sub_resource type="Animation" id="Animation_rolem"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_aobsq"]
+resource_name = "new_animation"
+length = 1.6
+loop_mode = 1
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_whmh5"]
+_data = {
+"RESET": SubResource("Animation_rolem"),
+"new_animation": SubResource("Animation_aobsq")
+}
+
+[node name="Main" type="Control" node_paths=PackedStringArray("_audio")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0855w")
+_audio = NodePath("AudioStreamPlayer")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_6ogbn")
+
+[node name="Space_Start" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -183.0
+offset_top = -15.5
+offset_right = 183.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "Press space to Start"
+label_settings = SubResource("LabelSettings_yvnih")
+horizontal_alignment = 1
+
+[node name="How_To_Play" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -170.0
+offset_top = -385.0
+offset_right = 178.0
+offset_bottom = -304.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "How to play:
+Left-click to kill the aliens
+Survive 1 minute"
+label_settings = SubResource("LabelSettings_syuw4")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Space_Start")
+libraries = {
+"": SubResource("AnimationLibrary_whmh5")
+}
+autoplay = "new_animation"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_78x8j")
+volume_db = -10.0

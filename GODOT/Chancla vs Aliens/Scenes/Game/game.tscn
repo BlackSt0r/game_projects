@@ -1,0 +1,105 @@
+[gd_scene load_steps=16 format=3 uid="uid://qjoi1f0lp31r"]
+
+[ext_resource type="Script" path="res://Scenes/Game/game.gd" id="1_nwges"]
+[ext_resource type="Texture2D" uid="uid://cl7tocmx3xerf" path="res://assets/Sky.png" id="5_q3ksh"]
+[ext_resource type="PackedScene" uid="uid://c0qidr6k4w55f" path="res://Scenes/Nave/nave.tscn" id="7_8auc4"]
+[ext_resource type="PackedScene" uid="uid://du0qx61gcksw0" path="res://Scenes/Street/street.tscn" id="7_d43in"]
+[ext_resource type="PackedScene" uid="uid://dnnh1mxuxaquj" path="res://Scenes/Player/player_target.tscn" id="7_lyj8m"]
+[ext_resource type="PackedScene" uid="uid://bvd1o5woi32oa" path="res://Scenes/Aliens/Brain/Brain.tscn" id="8_07poo"]
+[ext_resource type="PackedScene" uid="uid://cuvbvxrsdujog" path="res://Scenes/ParallaxBG/parallax_BackGround.tscn" id="8_k04yx"]
+[ext_resource type="PackedScene" uid="uid://csbwqtn88y8c2" path="res://Scenes/Chancla/chancla.tscn" id="8_tnni1"]
+[ext_resource type="PackedScene" uid="uid://cwduq2jr2af46" path="res://Scenes/Aliens/Dientitos/Dientitos.tscn" id="9_fd0x5"]
+[ext_resource type="PackedScene" uid="uid://4c36xnkcd14j" path="res://Scenes/PauseGame/pause_game.tscn" id="10_wgpun"]
+[ext_resource type="FontFile" uid="uid://0ly4ow518aet" path="res://assets/Font/Not Jam Mono Clean 13 - copia.ttf" id="11_1s50j"]
+[ext_resource type="AudioStream" uid="uid://cjopftnibo4ve" path="res://assets/Effects/main.ogg" id="11_l67lj"]
+[ext_resource type="PackedScene" uid="uid://ck5i1gko0wp2q" path="res://Scenes/Win_Lose_Scene/Win_Lose_Scene.tscn" id="12_5jxnc"]
+[ext_resource type="AudioStream" uid="uid://bmoqkt7oinily" path="res://assets/Effects/thwack-01.wav" id="14_by71u"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pp28h"]
+font = ExtResource("11_1s50j")
+font_size = 24
+
+[node name="Game" type="Node2D" node_paths=PackedStringArray("_marker_chancla", "_marker_alien_left", "_marker_alien_right", "_timer_alien_spawn", "_pause_menu", "_timer_to_win", "_timer_label", "_winlose", "_hit_sound")]
+position = Vector2(-2, 0)
+script = ExtResource("1_nwges")
+_chancla_scene = ExtResource("8_tnni1")
+_brain_scene = ExtResource("8_07poo")
+_dientitos_scene = ExtResource("9_fd0x5")
+_marker_chancla = NodePath("ChanclaSpawn")
+_marker_alien_left = NodePath("AlienSpawnLeft")
+_marker_alien_right = NodePath("AlienSpawnRight")
+_timer_alien_spawn = NodePath("TimerAlienSpawn")
+_pause_menu = NodePath("CanvasLayer/PauseGame")
+_timer_to_win = NodePath("TimerToWin")
+_timer_label = NodePath("CanvasLayer/Label")
+_winlose = NodePath("CanvasLayer/WinLoseScene")
+_hit_sound = NodePath("HitSound")
+
+[node name="Player_Target" parent="." instance=ExtResource("7_lyj8m")]
+z_index = 2
+
+[node name="Street" parent="." instance=ExtResource("7_d43in")]
+position = Vector2(475, 485)
+scale = Vector2(1.31, 0.8)
+
+[node name="Nave" parent="." instance=ExtResource("7_8auc4")]
+position = Vector2(475, 90)
+scale = Vector2(0.2, 0.2)
+
+[node name="ChanclaSpawn" type="Marker2D" parent="."]
+position = Vector2(725, 684)
+
+[node name="AlienSpawnLeft" type="Marker2D" parent="."]
+position = Vector2(400, 180)
+
+[node name="AlienSpawnRight" type="Marker2D" parent="."]
+position = Vector2(550, 180)
+
+[node name="TimerAlienSpawn" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="Clouds" parent="." instance=ExtResource("8_k04yx")]
+z_index = -1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -100
+scale = Vector2(59.5, 50)
+texture = ExtResource("5_q3ksh")
+centered = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseGame" parent="CanvasLayer" instance=ExtResource("10_wgpun")]
+visible = false
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_top = 2.0
+offset_bottom = 27.0
+grow_horizontal = 0
+size_flags_horizontal = 0
+label_settings = SubResource("LabelSettings_pp28h")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="WinLoseScene" parent="CanvasLayer" instance=ExtResource("12_5jxnc")]
+visible = false
+
+[node name="BGMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_l67lj")
+volume_db = -17.0
+autoplay = true
+parameters/looping = true
+
+[node name="TimerToWin" type="Timer" parent="."]
+wait_time = 60.0
+one_shot = true
+autostart = true
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_by71u")
+volume_db = -15.0

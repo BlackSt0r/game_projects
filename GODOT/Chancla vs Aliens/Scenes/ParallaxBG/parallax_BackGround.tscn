@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuvbvxrsdujog"]
+
+[ext_resource type="Script" path="res://Scenes/ParallaxBG/parallax_back_ground.gd" id="1_2hs02"]
+[ext_resource type="Texture2D" uid="uid://dfew4abyhx76y" path="res://assets/Clouds.png" id="2_jkh0m"]
+
+[node name="ParallaxBackGround" type="Parallax2D" node_paths=PackedStringArray("_sprite")]
+z_index = -100
+script = ExtResource("1_2hs02")
+_srcTexture = ExtResource("2_jkh0m")
+_sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+centered = false
